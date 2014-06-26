@@ -1,0 +1,34 @@
+extends ../layout
+
+block content_body
+  h1 Unit Testing
+  | Pick a library to test...
+  br
+
+  - var addr = '11DpJzhrpWAHj5yjBAjeXYzp1MVcK1hLv'
+  - var txHash = 'f7779483dd3a9ed60082e640975c2922802394b16a2ce89e7c5203254e63e287'
+  - var nTxID = '961edddfd72298486092cb14c3d2a5e6cec3d6562d13d94c07fe21cb4f8e745a'
+  - var pubkey = '04cdd6adec3289832b4768e4a2a158119f8aa9d67bd1a85b0a5dbfab5cbfe99ad236d6e956e9f092977ca20ef7b51deddd35ccc552aaf90ed6ec86563bf8787e98'
+  - var hash = 'abb799b1a54f38d0d22c7065c37c20c9267ec972'
+  
+  div.row(style='height:500px')
+    div.col-md-4(style='height:100%; border:1px solid black')
+      h3 Blockchain.info API
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/realTime/') Real Time
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/addrLookup/?address=#{addr}') Address Lookups
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/txLookup/?address=#{addr}&txHash=#{txHash}') Transaction Lookups
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/normHashLookup/?txHash=#{txHash}&nTxID=#{nTxID}') Normalized Hash Lookups
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/tools/?address=#{addr}&hash=#{hash}&pubkey=#{pubkey}') Tools
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/misc/?txHash=#{txHash}') Misc
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/firstbits/?address=#{addr}') Firstbits
+    div.col-md-4(style='height:100%; border:1px solid black')
+      h3 Another API
+    div.col-md-4(style='height:100%; border:1px solid black')
+      h3 Another API

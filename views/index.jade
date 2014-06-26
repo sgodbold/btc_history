@@ -1,4 +1,31 @@
 extends layout
 
-block content
-    h1 Welcome to BTC History
+block content_body
+  h1 Welcome to BTC History
+  | Discover the interesting past of your bitcoin
+  br
+  br
+  br
+  div.row
+    div.col-md-4
+      b Search
+    div.col-md-4
+      b Trade
+    div.col-md-4
+      b Learn
+  div.row
+    div.col-md-4
+      img(src='http://placehold.it/150x150')
+    div.col-md-4
+      img(src='http://placehold.it/150x150')
+    div.col-md-4
+      img(src='http://placehold.it/150x150')
+
+
+  br
+  br
+
+  form#inputAddressForm(role='form', name='addrInput', method='get', action='/address')
+    div.form-group
+      input.form-control#inputAddress(type='text', name='address', placeholder='Enter BTC Address...')
+    button.btn.btn-default(type='submit') Submit

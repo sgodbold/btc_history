@@ -1,0 +1,16 @@
+extends ../layout
+
+block content_body
+  h1 Unit Testing
+  h3 #{libraryTitle}
+  a.btn.btn-primary.btn-sm(href='/unitTest') Back
+  br
+  br
+
+  table.table.table-bordered
+    tr
+      each name in names
+        th #{name}
+    tr
+      each val in results
+        td #{val}
