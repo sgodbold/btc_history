@@ -1,0 +1,17 @@
+extends ../layout
+
+block content_body
+  h1 Unit Testing
+  h3 #{libraryTitle}
+  a.btn.btn-primary.btn-sm(href='/unitTest') Back
+  br
+  br
+
+  each result in results
+    each property, i in result
+      div.container-fluid
+        b #{i}
+        br
+        | #{property}
+        br
+        br

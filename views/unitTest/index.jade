@@ -1,19 +1,31 @@
 extends ../layout
 
 block content_body
-  h1 Unit Testing
+  h1 API Testing
   | Pick a library to test...
   br
 
+  //- Query variables
   - var addr = '11DpJzhrpWAHj5yjBAjeXYzp1MVcK1hLv'
   - var txHash = 'f7779483dd3a9ed60082e640975c2922802394b16a2ce89e7c5203254e63e287'
   - var nTxID = '961edddfd72298486092cb14c3d2a5e6cec3d6562d13d94c07fe21cb4f8e745a'
   - var pubkey = '04cdd6adec3289832b4768e4a2a158119f8aa9d67bd1a85b0a5dbfab5cbfe99ad236d6e956e9f092977ca20ef7b51deddd35ccc552aaf90ed6ec86563bf8787e98'
   - var hash = 'abb799b1a54f38d0d22c7065c37c20c9267ec972'
+
+  //- Data variables
+  - var blockHash = '000000000000000009856214278ce27b5669a1e1ec5a688e6fe3db765f8299b9'
+  - var blockIdx = '308329'
+  - var txIdx = '12554260'
+  - var txHash = 'b7e9067c3db0e661d2bb659cb6b44ae1288a10dc2e0845f050c5544716dc7ea5'
+  - var chartType = 'market-cap'
+  - var blockHeight = '308347'
+  - var addrHash = 'e95b299dcb440189285263bf0b5e8baff8c2283a'
+  - var milliseconds = '1403841600000'
+  - var pool = 'Discus Fish'
   
   div.row(style='height:500px')
     div.col-md-4(style='height:100%; border:1px solid black')
-      h3 Blockchain.info API
+      h3 Blockchain.info Query
       p
         a.btn.btn-primary.btn-sm(href='/unitTest/realTime/') Real Time
       p
@@ -29,6 +41,31 @@ block content_body
       p
         a.btn.btn-primary.btn-sm(href='/unitTest/firstbits/?address=#{addr}') Firstbits
     div.col-md-4(style='height:100%; border:1px solid black')
-      h3 Another API
+      h3 Blockchain.info Data
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/singleBlockIndex/?blockIdx=#{blockIdx}') Single Block by Index
+        a.btn.btn-primary.btn-sm(href='/unitTest/singleBlockHash/?blockHash=#{blockHash}') Single Block by Hash
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/singleTxIndex/?txIdx=#{txIdx}') Single Transaction by Index
+        a.btn.btn-primary.btn-sm(href='/unitTest/singleTxHash/?txHash=#{txHash}') Single Transaction by Hash
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/chartData/?chartType=#{chartType}') Chart Data
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/blockHeight/?blockHeight=#{blockHeight}') Block Height
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/singleAddrByAddr/?address=#{addr}') Single Address by Address
+        a.btn.btn-primary.btn-sm(href='/unitTest/singleAddrByHash/?addrHash=#{addrHash}') Single Address by Hash
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/unspentOutputs/?address=#{addr}') Unspent Outputs
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/latestBlock/') Latest Block
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/unconfirmedTx/') Unconfirmed Transactions
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/blocksForDay/?milliseconds=#{milliseconds}') Blocks for Day
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/blocksForPool/?pool=#{pool}') Blocks for Pool
+      p
+        a.btn.btn-primary.btn-sm(href='/unitTest/inventoryData/?hash=#{blockHash}') Inventory Data
     div.col-md-4(style='height:100%; border:1px solid black')
       h3 Another API

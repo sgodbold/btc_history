@@ -9,6 +9,7 @@ var normHashLookup = require('../lib/blockchainAPI/normHashLookup.js');
 var tools = require('../lib/blockchainAPI/tools.js');
 var misc = require('../lib/blockchainAPI/misc.js');
 var firstBits = require('../lib/blockchainAPI/firstBits.js');
+var data = require('../lib/blockchainAPI/data.js');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -129,7 +130,7 @@ router.get('/realTime', function(req, res) {
     }
   ], function(err, results) {
       if(!err) {
-        res.render('unitTest/blockchainAPI', {
+        res.render('unitTest/blockchainQuery', {
           'libraryTitle' : 'realTime',
           'names' : names,
           'results' : results
@@ -182,7 +183,7 @@ router.get('/addrLookup', function(req, res) {
 
   ], function(err, results) {
       if(!err) {
-        res.render('unitTest/blockchainAPI', {
+        res.render('unitTest/blockchainQuery', {
           'libraryTitle' : 'addressLookups',
           'names' : names,
           'results' : results
@@ -232,7 +233,7 @@ router.get('/txLookup', function(req, res) {
     }
   ], function(err, results) {
       if(!err) {
-        res.render('unitTest/blockchainAPI', {
+        res.render('unitTest/blockchainQuery', {
           'libraryTitle' : 'txLookup',
           'names' : names,
           'results' : results
@@ -267,7 +268,7 @@ router.get('/normHashLookup', function(req, res) {
     }
   ], function(err, results) {
       if(!err) {
-        res.render('unitTest/blockchainAPI', {
+        res.render('unitTest/blockchainQuery', {
           'libraryTitle' : 'normHashLookup',
           'names' : names,
           'results' : results
@@ -331,7 +332,7 @@ router.get('/tools', function(req, res) {
     }
   ], function(err, results) {
       if(!err) {
-        res.render('unitTest/blockchainAPI', {
+        res.render('unitTest/blockchainQuery', {
           'libraryTitle' : 'tools',
           'names' : names,
           'results' : results
@@ -401,7 +402,7 @@ router.get('/misc', function(req, res) {
     }
   ], function(err, results) {
       if(!err) {
-        res.render('unitTest/blockchainAPI', {
+        res.render('unitTest/blockchainQuery', {
           'libraryTitle' : 'misc',
           'names' : names,
           'results' : results
@@ -427,9 +428,341 @@ router.get('/firstBits', function(req, res) {
     }
   ], function(err, results) {
       if(!err) {
-        res.render('unitTest/blockchainAPI', {
+        res.render('unitTest/blockchainQuery', {
           'libraryTitle' : 'getFirstBits',
           'names' : names,
+          'results' : results
+        });
+      }
+      else {
+        res.send(err);
+      }
+  });
+});
+
+/* GET /singleBlockIndex page. */
+router.get('/singleBlockIndex', function(req, res){
+  var blockIdx = req.query.blockIdx;
+
+  async.parallel([
+    function(callback) {
+      data.singleBlockByIdx(blockIdx, function(apiValue) {
+        if(apiValue != null) callback(null, apiValue);
+        else callback('singleBlockByIndex: Error!');
+      });
+    }
+  ], function(err, results) {
+      if(!err) {
+        res.render('unitTest/blockchainData', {
+          'libraryTitle' : 'singleBlockIndex',
+          'results' : results
+        });
+      }
+      else {
+        res.send(err);
+      }
+  });
+});
+
+/* GET /singleBlockHash page. */
+router.get('/singleBlockHash', function(req, res){
+  var blockHash = req.query.blockHash;
+
+  async.parallel([
+    function(callback) {
+      data.singleBlockByHash(blockHash, function(apiValue) {
+        if(apiValue != null) callback(null, apiValue);
+        else callback('singleBlockByHash: Error!');
+      });
+    }
+  ], function(err, results) {
+      if(!err) {
+        res.render('unitTest/blockchainData', {
+          'libraryTitle' : 'singleBlockHash',
+          'results' : results
+        });
+      }
+      else {
+        res.send(err);
+      }
+  });
+});
+
+/* GET /singleTxIndex page. */
+router.get('/singleTxIndex', function(req, res){
+  var txIdx = req.query.txIdx;
+
+  async.parallel([
+    function(callback) {
+      data.singleTxByIdx(txIdx, function(apiValue) {
+        if(apiValue != null) callback(null, apiValue);
+        else callback('singleTxByIndex: Error!');
+      });
+    }
+  ], function(err, results) {
+      if(!err) {
+        res.render('unitTest/blockchainData', {
+          'libraryTitle' : 'singleTxIndex',
+          'results' : results
+        });
+      }
+      else {
+        res.send(err);
+      }
+  });
+});
+
+/* GET /singleTxHash page. */
+router.get('/singleTxHash', function(req, res){
+  var txHash = req.query.txHash;
+
+  async.parallel([
+    function(callback) {
+      data.singleTxByHash(txHash, function(apiValue) {
+        if(apiValue != null) callback(null, apiValue);
+        else callback('singleTxByHash: Error!');
+      });
+    }
+  ], function(err, results) {
+      if(!err) {
+        res.render('unitTest/blockchainData', {
+          'libraryTitle' : 'singleTxHash',
+          'results' : results
+        });
+      }
+      else {
+        res.send(err);
+      }
+  });
+});
+
+/* GET /chartData page. */
+router.get('/chartData', function(req, res){
+  var chartType = req.query.chartType;
+
+  async.parallel([
+    function(callback) {
+      data.chartData(chartType, function(apiValue) {
+        if(apiValue != null) callback(null, apiValue);
+        else callback('chartData: Error!');
+      });
+    }
+  ], function(err, results) {
+      if(!err) {
+        res.render('unitTest/blockchainData', {
+          'libraryTitle' : 'chartData',
+          'results' : results
+        });
+      }
+      else {
+        res.send(err);
+      }
+  });
+});
+
+/* GET /blockHeight page. */
+router.get('/blockHeight', function(req, res){
+  var blockHeight = req.query.blockHeight;
+
+  async.parallel([
+    function(callback) {
+      data.blockHeight(blockHeight, function(apiValue) {
+        if(apiValue != null) callback(null, apiValue);
+        else callback('blockHeight: Error!');
+      });
+    }
+  ], function(err, results) {
+      if(!err) {
+        res.render('unitTest/blockchainData', {
+          'libraryTitle' : 'blockHeight',
+          'results' : results
+        });
+      }
+      else {
+        res.send(err);
+      }
+  });
+});
+
+/* GET /singleAddrByAddr page. */
+router.get('/singleAddrByAddr', function(req, res){
+  var addr = req.query.address;
+
+  async.parallel([
+    function(callback) {
+      data.singleAddrByAddr(addr, function(apiValue) {
+        if(apiValue != null) callback(null, apiValue);
+        else callback('singleAddrByAddr: Error!');
+      });
+    }
+  ], function(err, results) {
+      if(!err) {
+        res.render('unitTest/blockchainData', {
+          'libraryTitle' : 'singleAddrByAddr',
+          'results' : results
+        });
+      }
+      else {
+        res.send(err);
+      }
+  });
+});
+
+/* GET /singleAddrByHash page. */
+router.get('/singleAddrByHash', function(req, res){
+  var addrHash = req.query.addrHash;
+
+  async.parallel([
+    function(callback) {
+      data.singleAddrByHash(addrHash, function(apiValue) {
+        if(apiValue != null) callback(null, apiValue);
+        else callback('singleAddrByHash: Error!');
+      });
+    }
+  ], function(err, results) {
+      if(!err) {
+        res.render('unitTest/blockchainData', {
+          'libraryTitle' : 'singleAddrByHash',
+          'results' : results
+        });
+      }
+      else {
+        res.send(err);
+      }
+  });
+});
+
+/* GET /unspentOutputs page. */
+router.get('/unspentOutputs', function(req, res){
+  var addr = req.query.address;
+
+  async.parallel([
+    function(callback) {
+      data.unspentOutputs(addr, function(apiValue) {
+        if(apiValue != null) callback(null, apiValue);
+        else callback('unspentOutputs: Error!');
+      });
+    }
+  ], function(err, results) {
+      if(!err) {
+        res.render('unitTest/blockchainData', {
+          'libraryTitle' : 'unspentOutputs',
+          'results' : results
+        });
+      }
+      else {
+        res.send(err);
+      }
+  });
+});
+
+/* GET /latestBlock page. */
+router.get('/latestBlock', function(req, res){
+  async.parallel([
+    function(callback) {
+      data.latestBlock(function(apiValue) {
+        if(apiValue != null) callback(null, apiValue);
+        else callback('latestBlock: Error!');
+      });
+    }
+  ], function(err, results) {
+      if(!err) {
+        res.render('unitTest/blockchainData', {
+          'libraryTitle' : 'latestBlock',
+          'results' : results
+        });
+      }
+      else {
+        res.send(err);
+      }
+  });
+});
+
+/* GET /unconfirmedTx page. */
+router.get('/unconfirmedTx', function(req, res){
+  async.parallel([
+    function(callback) {
+      data.unconfirmedTx(function(apiValue) {
+        if(apiValue != null) callback(null, apiValue);
+        else callback('unconfirmedTx: Error!');
+      });
+    }
+  ], function(err, results) {
+      if(!err) {
+        res.render('unitTest/blockchainData', {
+          'libraryTitle' : 'unconfirmedTx',
+          'results' : results
+        });
+      }
+      else {
+        res.render('unitTest/blockchainData', {
+          'libraryTitle' : 'unconfirmedTx',
+          'results' : results
+        });
+      }
+  });
+});
+
+/* GET /blocksForDay page. */
+router.get('/blocksForDay', function(req, res){
+  var milliseconds = req.query.milliseconds;
+
+  async.parallel([
+    function(callback) {
+      data.blocksForDay(milliseconds, function(apiValue) {
+        if(apiValue != null) callback(null, apiValue);
+        else callback('blocksForDay: Error!');
+      });
+    }
+  ], function(err, results) {
+      if(!err) {
+        res.send(results);
+      }
+      else {
+        res.send(err);
+      }
+  });
+});
+
+/* GET /blocksForPool page. */
+router.get('/blocksForPool', function(req, res){
+  var poolName = req.query.pool;
+
+  async.parallel([
+    function(callback) {
+      data.blocksForPool(poolName, function(apiValue) {
+        if(apiValue != null) callback(null, apiValue);
+        else callback('blocksForPool: Error!');
+      });
+    }
+  ], function(err, results) {
+      if(!err) {
+        res.render('unitTest/blockchainData', {
+          'libraryTitle' : 'blocksForPool',
+          'results' : results
+        });
+      }
+      else {
+        res.send(err);
+      }
+  });
+});
+
+/* GET /inventoryData page. */
+router.get('/inventoryData', function(req, res){
+  var hash = req.query.hash;
+
+  async.parallel([
+    function(callback) {
+      data.inventoryData(hash, function(apiValue) {
+        if(apiValue != null) callback(null, apiValue);
+        else callback('inventoryData: Error!');
+      });
+    }
+  ], function(err, results) {
+      if(!err) {
+        res.render('unitTest/blockchainData', {
+          'libraryTitle' : 'blocksForPool',
           'results' : results
         });
       }
