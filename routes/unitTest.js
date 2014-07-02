@@ -455,7 +455,7 @@ router.get('/singleBlockIndex', function(req, res){
       if(!err) {
         res.render('unitTest/blockchainData', {
           'libraryTitle' : 'singleBlockIndex',
-          'results' : results
+          'results' : JSON.stringify(results)
         });
       }
       else {
@@ -479,7 +479,7 @@ router.get('/singleBlockHash', function(req, res){
       if(!err) {
         res.render('unitTest/blockchainData', {
           'libraryTitle' : 'singleBlockHash',
-          'results' : results
+          'results' : JSON.stringify(results)
         });
       }
       else {
@@ -503,7 +503,7 @@ router.get('/singleTxIndex', function(req, res){
       if(!err) {
         res.render('unitTest/blockchainData', {
           'libraryTitle' : 'singleTxIndex',
-          'results' : results
+          'results' : JSON.stringify(results)
         });
       }
       else {
@@ -527,7 +527,7 @@ router.get('/singleTxHash', function(req, res){
       if(!err) {
         res.render('unitTest/blockchainData', {
           'libraryTitle' : 'singleTxHash',
-          'results' : results
+          'results' : JSON.stringify(results)
         });
       }
       else {
@@ -551,7 +551,7 @@ router.get('/chartData', function(req, res){
       if(!err) {
         res.render('unitTest/blockchainData', {
           'libraryTitle' : 'chartData',
-          'results' : results
+          'results' : JSON.stringify(results)
         });
       }
       else {
@@ -575,7 +575,7 @@ router.get('/blockHeight', function(req, res){
       if(!err) {
         res.render('unitTest/blockchainData', {
           'libraryTitle' : 'blockHeight',
-          'results' : results
+          'results' : JSON.stringify(results)
         });
       }
       else {
@@ -599,7 +599,7 @@ router.get('/singleAddrByAddr', function(req, res){
       if(!err) {
         res.render('unitTest/blockchainData', {
           'libraryTitle' : 'singleAddrByAddr',
-          'results' : results
+          'results' : JSON.stringify(results)
         });
       }
       else {
@@ -623,7 +623,7 @@ router.get('/singleAddrByHash', function(req, res){
       if(!err) {
         res.render('unitTest/blockchainData', {
           'libraryTitle' : 'singleAddrByHash',
-          'results' : results
+          'results' : JSON.stringify(results)
         });
       }
       else {
@@ -647,7 +647,7 @@ router.get('/unspentOutputs', function(req, res){
       if(!err) {
         res.render('unitTest/blockchainData', {
           'libraryTitle' : 'unspentOutputs',
-          'results' : results
+          'results' : JSON.stringify(results)
         });
       }
       else {
@@ -669,7 +669,7 @@ router.get('/latestBlock', function(req, res){
       if(!err) {
         res.render('unitTest/blockchainData', {
           'libraryTitle' : 'latestBlock',
-          'results' : results
+          'results' : JSON.stringify(results)
         });
       }
       else {
@@ -691,13 +691,13 @@ router.get('/unconfirmedTx', function(req, res){
       if(!err) {
         res.render('unitTest/blockchainData', {
           'libraryTitle' : 'unconfirmedTx',
-          'results' : results
+          'results' : JSON.stringify(results)
         });
       }
       else {
         res.render('unitTest/blockchainData', {
           'libraryTitle' : 'unconfirmedTx',
-          'results' : results
+          'results' : JSON.stringify(results)
         });
       }
   });
@@ -716,7 +716,11 @@ router.get('/blocksForDay', function(req, res){
     }
   ], function(err, results) {
       if(!err) {
-        res.send(results);
+        res.render('unitTest/blockchainData', {
+          'libraryTitle' : 'blocksForDay',
+          'results' : JSON.stringify(results)
+        });
+
       }
       else {
         res.send(err);
@@ -739,7 +743,7 @@ router.get('/blocksForPool', function(req, res){
       if(!err) {
         res.render('unitTest/blockchainData', {
           'libraryTitle' : 'blocksForPool',
-          'results' : results
+          'results' : JSON.stringify(results)
         });
       }
       else {
@@ -763,7 +767,7 @@ router.get('/inventoryData', function(req, res){
       if(!err) {
         res.render('unitTest/blockchainData', {
           'libraryTitle' : 'blocksForPool',
-          'results' : results
+          'results' : JSON.stringify(results)
         });
       }
       else {

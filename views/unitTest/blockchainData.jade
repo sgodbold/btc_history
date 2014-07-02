@@ -1,17 +1,42 @@
 extends ../layout
 
 block content_body
+  - var jsonResults = JSON.parse(results)
+
   h1 Unit Testing
   h3 #{libraryTitle}
   a.btn.btn-primary.btn-sm(href='/unitTest') Back
   br
   br
 
-  each result in results
-    each property, i in result
-      div.container-fluid
-        b #{i}
-        br
-        | #{property}
-        br
-        br
+  ul.list-unstyled
+    each result in jsonResults
+      each property, i in result
+        //- Additional parsing for transactions
+        case i
+          when "tx"
+            h3 Transactions
+            each tx in property
+              each val, name in tx
+                //- Additional parsing for inputs and outputs
+                case name
+                  when "inputs"
+                    b #{name}
+                    each item, j in val
+                      each itemVal, itemName in item
+                        li #{itemName} : #{itemVal}
+                  when "out"
+                    b #{name}
+                    each item, j in val
+                      each itemVal, itemName in item
+                        li #{itemName} :  #{itemVal}
+                  default
+                    //- Print transaction values
+                    li
+                      b #{name}
+                      | : #{val}
+              br
+          default
+            li
+              b #{i}
+              | : #{property}

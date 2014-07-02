@@ -1,13 +1,23 @@
 extends layout
 
 block content_body
+  - var jsonData = JSON.parse(data)
+
   h1 Address Lookup
   br
   p Address: #{address}
-  p Received: #{addrReceived}
-  p Sent: #{addrSent}
-  p Balance: #{addrBalance}
-  p Time First Seen: #{addrAge}
+  p Received: #{jsonData.addrReceived}
+  p Sent: #{jsonData.addrSent}
+  p Balance: #{jsonData.addrBalance}
+  p Time First Seen: #{jsonData.addrAge}
+
   br
   br
-  h1 Transaction Lookup
+
+  h1 Unspent Outputs
+  each tx in jsonData.addrOutputs.unspent_outputs
+    each val, name in tx
+      | #{name} : #{val}
+      br
+    br
+    br

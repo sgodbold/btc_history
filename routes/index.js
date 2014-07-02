@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var async = require('async');
 var addrLib = require('../lib/blockchainAPI/addrLookup.js');
+var btcData = require('../lib/blockchainAPI/data.js');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -40,16 +41,20 @@ router.get('/address', function(req, res) {
         if(apiValue != null) callback(null, apiValue);
         else callback("addrAge: Error!");
       });
+    },
+
+    addrOutputs: function(callback) {
+      btcData.unspentOutputs(addrIn, function(apiValue) {
+        if(apiValue != null) callback(null, apiValue);
+        else callback("addrOutputs: Error!");
+      });
     }
 
   }, function(err, results) {
       if(!err) {
         res.render('address', {
           'address' : addrIn,
-          'addrReceived' : results.addrReceived,
-          'addrSent' : results.addrSent,
-          'addrBalance' : results.addrBalance,
-          'addrAge' : results.addrAge
+          'data' : JSON.stringify(results)
         });
       }
       else {
